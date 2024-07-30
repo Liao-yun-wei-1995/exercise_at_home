@@ -1,0 +1,161 @@
+建foreign key
+
+新增表格時
+create table sql_customer(
+id varchar2(10 byte)primary key,
+name nvarchar2(20),
+emp char (8 byte) references sql_emp(emp_id))
+
+找尋在表格中大於一個數的資料
+select * from table_nm
+where 
+column>= 'number';
+
+找系統開發部姓王的
+select * from table_nm
+whrere name like='王%'and 部門='系統開發部';
+
+找身高160與165
+select * from height table
+where in height in ('160','165')
+;
+檢討in後面要加括號
+
+
+練習5.1
+select 序號c as 序號,
+  氫離子C as 氫離子,
+  濁度C as 濁度,
+  綠C as 綠
+from 
+   表格
+where
+    氫離子 in (7.5,8)
+and
+    綠 >= 0.6
+and
+    地點='T22';
+
+
+檢討:是否為字串要分清楚再決定要不要''
+
+練習5.2
+select 序號c as 序號,
+  氫離子C as 氫離子,
+  濁度C as 濁度,
+  綠C as 綠
+from 
+   表格
+where 
+   (序號 >=521 and <=529)
+or (   
+   綠 in(0.76,0.77,0.66)
+and
+   氫離子!=0.8
+and
+   濁度=0.6);    
+
+distinct練習
+有幾種血型的人
+
+select distinct 血型c
+from 基本資料table;
+
+
+練習六
+6.1
+select 序號c as 序號,
+  氫離子C as 氫離子,
+  濁度C as 濁度,
+  綠C as 綠,
+  地點C as 地點
+from 
+   表格
+where 
+   (序號 >=521 and <=529)
+or (   
+   綠 in(0.76,0.77,0.66)
+and
+   氫離子!=0.8
+and
+   濁度=0.6);   
+order by 濁度 asc,序號desc;
+
+檢討:order by 排序兩種要由外而內，兩個排序跳艦之間用","隔開
+
+練習七
+問題一
+
+select 序號c as 序號,
+  氫離子C as 氫離子,
+  濁度C as 濁度,
+  綠C as 綠,
+  地點C as 地點
+from 
+   表格
+where 
+   (序號 >=521 and <=529)
+
+union all
+
+select 序號c as 序號,
+  氫離子C as 氫離子,
+  濁度C as 濁度,
+  綠C as 綠,
+  地點C as 地點
+from 
+   表格
+where   
+   綠 in(0.76,0.77,0.66)
+and
+   氫離子!=0.8
+and
+   濁度=0.6)
+order by 濁度 asc,序號desc;
+
+練習八
+select 序號, 綠, 濁度, as淨水廠, as供水系統,as行政區,as路段 
+from(
+
+select 序號c as 序號,
+  氫離子C as 氫離子,
+  濁度C as 濁度,
+  綠C as 綠,
+  地點C as 地點
+from 
+   表格
+where 
+   (序號 >=521 and <=529)
+
+union all
+
+select 序號c as 序號,
+  氫離子C as 氫離子,
+  濁度C as 濁度,
+  綠C as 綠,
+  地點C as 地點
+from 
+   表格
+where   
+   綠 in(0.76,0.77,0.66)
+and
+   氫離子!=0.8
+and
+   濁度=0.6)
+
+)
+left join 桃園地區table
+on 地點C= 桃園地區地點C
+
+left join 桃園供水table
+on 供水編號C= 桃園供水table供水C
+order by 濁度 asc,序號desc;
+
+檢討:
+新增的資料還是要用as改column name
+order by要放最後面
+
+
+
+
+
